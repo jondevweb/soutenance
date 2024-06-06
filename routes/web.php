@@ -17,26 +17,26 @@ use App\Http\Middleware\EnsureUserHasRole;
 
 //api
 
-Route::prefix('/api')->group( function () {
-    Route::prefix('/client')->group(function () {
-        Route::get('compte', [UserController::class, 'showUser'])->name('client');
-        Route::get('collecteId', [CollecteController::class, 'showId'])->name('collecteId');
-        Route::get('pointcollecte', [CollecteController::class, 'showCollecte'])->name('pointcollecte');
-        Route::get('entreprise', [UserController::class, 'showEntreprise'])->name('entreprise'); 
-        Route::get('passage', [CollecteController::class, 'showPassage'])->name('passage');
-        Route::get('attestation', [DocumentController::class, 'showAttestation'])->name('attestation');
-    });
-});
+// Route::prefix('/api')->group( function () {
+//     Route::prefix('/client')->group(function () {
+//         Route::get('compte', [UserController::class, 'showUser'])->name('client');
+//         Route::get('collecteId', [CollecteController::class, 'showId'])->name('collecteId');
+//         Route::get('pointcollecte', [CollecteController::class, 'showCollecte'])->name('pointcollecte');
+//         Route::get('entreprise', [UserController::class, 'showEntreprise'])->name('entreprise'); 
+//         Route::get('passage', [CollecteController::class, 'showPassage'])->name('passage');
+//         Route::get('attestation', [DocumentController::class, 'showAttestation'])->name('attestation');
+//     });
+// });
 
 // route client
 
 Route::get('client', [ViewController::class, 'showView'])->name('viewclient'); //ok
-Route::get('compte', [UserController::class, 'showUser'])->name('client'); //ok
-Route::get('collecteId', [CollecteController::class, 'showId'])->name('collecteId');
-Route::get('pointcollecte', [CollecteController::class, 'showCollecte'])->name('pointcollecte');
-Route::post('api/entreprise/1712', [UserController::class, 'entreprise'])->name('entreprise'); 
-Route::get('passage', [CollecteController::class, 'showPassage'])->name('passage');
-Route::get('attestation', [DocumentController::class, 'showAttestation'])->name('attestation');
+Route::post('api/compte/{id}', [UserController::class, 'showUser'])->name('client'); //ok
+Route::post('api/collecteId/{id}', [CollecteController::class, 'showId'])->name('collecteId');
+Route::post('api/pointcollecte/{id}', [CollecteController::class, 'showCollecte'])->name('pointcollecte');
+Route::post('api/entreprise/{id}', [UserController::class, 'entreprise'])->name('entreprise'); 
+Route::post('api/postpassage/{id}', [CollecteController::class, 'showPassage'])->name('passage');
+Route::post('api/attestation/{id}', [DocumentController::class, 'showAttestation'])->name('attestation');
 
 // route admin
 

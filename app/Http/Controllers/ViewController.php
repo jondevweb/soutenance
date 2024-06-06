@@ -17,8 +17,7 @@ class ViewController extends Controller
             $user->clientId = $collecteId;
             $entreprise = app(UserController::class)->showEntreprise([$collecteId]);
             $user->pointCollecte = $entreprise;
-            $user->data = 'aie';
-            return view('client/client', ['user' => $user]);
+            return view('client/client', compact('user'));
         } else {
             return view('welcome');
         }

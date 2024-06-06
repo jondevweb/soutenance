@@ -65,8 +65,12 @@ class UserController extends Controller
 
     public function entreprise(Request $Request)
     {    
-        $entreprise = Entreprise::where('id', $Request->id)->get();
-        return response()->json(['result' => $entreprise]);
+        if (Auth::check()) {
+            $entreprise = Entreprise::where('id', $Request->id)->get();
+            return response()->json(['result' => $entreprise]);
+        } else {
+            return response()->json(['result' => 'Veuillez vous identifier']);
+        }
     }
 
     public function showEntreprise(array $array)

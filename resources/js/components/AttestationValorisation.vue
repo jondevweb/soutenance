@@ -1,0 +1,3 @@
+<template>
+    AttestationValorisation.vue
+</template>

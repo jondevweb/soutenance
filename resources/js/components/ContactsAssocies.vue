@@ -1,0 +1,3 @@
+<template>
+    ContactsAssocies.vue
+</template>

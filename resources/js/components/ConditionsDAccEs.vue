@@ -1,0 +1,3 @@
+<template>
+    ConditionsDAccEs.vue
+</template>

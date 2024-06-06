@@ -18,6 +18,18 @@
                 color: white !important;
             }
 
+            nav a:focus{
+                color: #b1dc4c !important;
+            }
+
+            .navbar-collapse{
+                width: 0px;
+            }
+
+            .show{
+                width: 100%;
+            }
+
             button{
                 border: none  !important;
             }
@@ -31,8 +43,20 @@
                 color: white;
             }
 
-        </style>
+            .navbar-expand-lg .navbar-nav .dropdown-menu {
+                position: static;
+            }
 
+            .nav-tabs .nav-link.active, .dropdown-menu, .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active, .dropdown-item:hover {
+                background-color: rgba(0,0,0,0);
+                border-color: rgba(0,0,0,0);
+            }
+
+            .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+                border-color: rgba(0,0,0,0);
+            }
+        </style>
+        @vite(['resources/js/app.js', 'resources/css/app.css'])
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head> 
@@ -50,14 +74,14 @@
             </div>
             <div style="width: 60%; display:flex; justify-content: end;"> 
                 <div class="input-group" style="width: 60%">
-                    <select class="custom-select" id="collecteId" style="height: 100%; background: #c5ceae;" onClick="selected()"> 
+                    <select class="custom-select" id="collecteId" onchange="updateVueData()" style="height: 100%; background: #c5ceae;" > 
                     @if (session()->get('triethic')['roles'] = 'client')
-                        <option selected>Point de collecte</option>
+                        <option selected  value= "2">Point de collecte</option>
                         @foreach ($user->pointCollecte as $pointCollecte)
                             <option value="{{$pointCollecte->id}}">{{$pointCollecte->raison_sociale}}</option>
                         @endforeach
                     @else 
-                        <option selected>Pas de point de collecte</option>
+                        <option value= "2" selected>Pas de point de collecte</option>
                     @endif
                     </select>
                 </div>
@@ -69,7 +93,7 @@
                             <span>{{$user->nom}}</span>
                         </div>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="    border: 1px solid black; ">
                         <a class="dropdown-item" href="#">Mes informations</a>
                         <a class="dropdown-item" href="#">Documentation</a>
                         <button class="dropdown-item" onClick="logout()">Déconnexion</button>
@@ -79,54 +103,61 @@
             </div>
         </header>
         <main style="display:flex; height: 100%;">
-            <section style="background: #003f6e;">
+            <section style="background: #003f6e;" >
             <!-- <section style="width: 300px; background: #003f6e;"> -->
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-                        <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" onClick="componentSelected(1712)">Link</a>
-                        </li>
-                        <li class="nav-item dropdown" >
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                            Dropdown
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
+                        <ul class="nav nav-tabs navbar-nav mr-auto"  id="myTab" role="tablist" style=" display: flex; flex-direction: column; margin-left: 50px; width: 150px;">
+                            <li class="nav-item">
+                                <a class="nav-link" onClick="componentSelected(1712)" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="profile" aria-selected="false">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">profil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Contact</a>
+                            </li>
+                            <li class="nav-item dropdown" >
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                Dropdown
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" id="dropdown-tab" data-toggle="tab" href="#dropdown" role="tab" aria-controls="dropdown"  aria-selected="false">dropdown</a>
+                                <a class="dropdown-item" id="dropdown-2-tab" data-toggle="tab" href="#dropdown-2" role="tab" aria-controls="dropdown-2" aria-selected="false">dropdown-2</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Entreprise</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link active" id="preference-tab" data-toggle="tab" href="#preference" role="tab" aria-controls="preference" aria-selected="true">preference</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
             </section>
             <section>
-                <div class="card" style="width: 18rem; margin: 30px;">
-                    <form class="card-body">
-                        <fieldset disabled>
-                            <div class="form-group">
-                            <label for="disabledTextInput">Disabled input</label>
-                            <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
-                            </div>
-                        </fieldset>
-                    </form>
+            <div id="app" style="margin-left: 300px;" data-initial-value="">
+            
+    </div>
+                <div class="tab-content">
+                    <div class="tab-pane" id="home" role="tabpanel" aria-labelledby="home-tab">home</div>
+                    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">@include('client/profile')</div>
+                    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">@include('client/messages')</div>
+                    <div class="tab-pane" id="dropdown" role="tabpanel" aria-labelledby="dropdown-tab">dropdown</div>
+                    <div class="tab-pane" id="dropdown-2" role="tabpanel" aria-labelledby="dropdown-2-tab">dropdown-2</div>
+                    <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="dropdown-2-tab">@include('client/entreprise')</div>
+                    <div class="tab-pane" id="preference" role="tabpanel" aria-labelledby="dropdown-2-tab">@include('client/preference')</div>
                 </div>
-                
-                <div>
-                
-                    @include('client/userInfo')
-                    {{ $user->data }}
-
-                </div>
-               
+                @if (session()->get('triethic')['roles'] = 'client')
+                        @foreach ($user->pointCollecte as $pointCollecte)
+                           {{$pointCollecte->id}}
+                        @endforeach
+                    @else 
+                        
+                    @endif
             </section>
         </main>
 
@@ -229,16 +260,26 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+                
         <script>
-            
-            var collecteId = document.getElementById('collecteId');
-            var componentCollecteId;
-            function selected(event){
-                componentCollecteId = collecteId.value;
-                console.log(componentCollecteId);
-            };
+            $(function () {
+                $('#myTab li:last-child a').tab('show')
+            })
+
+            function updateVueData() {
+                const collecteId = document.getElementById('collecteId');
+                const componentCollecteId = parseInt(collecteId.value, 10);
+                console.log('number :' + componentCollecteId);
+                const event = new CustomEvent('value-changed', { detail: componentCollecteId });
+                document.getElementById('app').dispatchEvent(event);
+            }
+
             var link;
+            async function newLink(){
+                console.log(link)
+            }
+
+            var $SESSION;
             async function componentSelected(id){
                 await axios.post('api/entreprise/1712', {
                     id: id
@@ -251,6 +292,7 @@
                     error.response;
                 });
             }
+            console.log(link);
             console.log(link);
             // console.log({!!$user!!});
             async function logout() {

@@ -1,27 +1,16 @@
-import './bootstrap';
-import "bootstrap";
 
-import { createApp } from "vue";
 
-import ExampleCounter from "App.vue";
+import { Quasar } from 'quasar';
 
-const app = createApp({});
+import '@quasar/extras/material-icons/material-icons.css';
+import quasarIconSet from 'quasar/icon-set/material-icons'; // if you want to use a different icon set
+import quasarLang from 'quasar/lang/en-US'; // if you want to change the language
+import 'quasar/src/css/index.sass';
+import { createApp } from 'vue';
+import App from './App.vue';
 
-app.component("example-counter", ExampleCounter);
-
-const mountedApp = app.mount("#app");
-// import { createApp, h } from 'vue'
-// import { createInertiaApp } from '@inertiajs/vue3'
-
-// createInertiaApp({
-//   resolve: name => {
-//     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
-//     // return pages[`./Pages/${name}.vue`]
-//     return pages[`./Pages/User/Show.vue`]
-//   },
-//   setup({ el, App, props, plugin }) {
-//     createApp({ render: () => h(App, props) })
-//       .use(plugin)
-//       .mount(el)
-//   },
-// })
+createApp(App).use(Quasar, {
+    plugins: {}, // import Quasar plugins and add here
+  lang: quasarLang,
+  iconSet: quasarIconSet, // import Quasar plugins and add here
+  }).mount('#app');
