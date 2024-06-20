@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+// use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Permission;
 
 class AccountController extends Controller
 {
@@ -21,6 +23,7 @@ class AccountController extends Controller
             if (Auth::attempt(['email' => $credentials["email"], 'password' => $credentials["password"]])) {
                 $request->session()->regenerate();
                 $user = User::where('email', $credentials["email"])->first();
+                // $user->assignRole($user->id);
                 Auth::login($user, $remember = true);
    
                 $request->session()->put('triethic', [
@@ -39,6 +42,43 @@ class AccountController extends Controller
         }
         return response()->json(['status' => false, 'message' => '', 'result' => []], 401);
     }
+
+    // public function assignRole(int $id)
+    // {
+    //     if($id === 8){
+    //         $user = User::find($id);
+    //         $user->assignRole('admin');
+    //     } else {
+    //         $user = User::find($id);
+    //         $user->assignRole('client');
+    //     }
+
+    // }
+
+
+
+
+
+//     use App\Models\User;
+// use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Permission;
+
+// class UserController extends Controller
+// {
+//     public function assignRole()
+//     {
+//         $user = User::find(1);
+//         $user->assignRole('admin');
+//     }
+
+//     public function checkPermission()
+//     {
+//         $user = User::find(1);
+
+//         if ($user->can('edit posts')) {
+//             // The user has the permission
+//         }
+//     }
         // $request->authenticate();
 
         // $result = array_merge($result, ['token' => $formRequest->session()->token()]);

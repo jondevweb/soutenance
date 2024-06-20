@@ -5,18 +5,28 @@ import path from 'path';
 import { defineConfig } from 'vite';
  
 export default defineConfig({
-    plugins: [
-      vue({template: { transformAssetUrls }}),
-      quasar({
-        sassVariables: 'resources/sass/quasar-variables.scss'
-      }),
-      laravel({
-        input: ['resources/js/app.js', 'resources/css/app.css'],
-        refresh: true,
-      }),
-    ],resolve: {
-        alias: {
-          '@': path.resolve(__dirname, 'resources/js'),
-        },
-      },
-  });
+  plugins: [
+    vue({template: { transformAssetUrls }}),
+    quasar({
+      sassVariables: 'resources/sass/quasar-variables.scss'
+    }),
+    laravel({
+      input: ['resources/js/app.js', 'resources/css/app.css'],
+      refresh: true,
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'resources/js'),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      css: {
+        additionalData: `
+          @import '@fortawesome/fontawesome-free/css/all.css';
+        `
+      }
+    }
+  },
+});

@@ -35,7 +35,7 @@ Route::post('api/compte/{id}', [UserController::class, 'showUser'])->name('clien
 Route::post('api/collecteId/{id}', [CollecteController::class, 'showId'])->name('collecteId');
 Route::post('api/pointcollecte/{id}', [CollecteController::class, 'showCollecte'])->name('pointcollecte');
 Route::post('api/entreprise/{id}', [UserController::class, 'entreprise'])->name('entreprise'); 
-Route::post('api/postpassage/{id}', [CollecteController::class, 'showPassage'])->name('passage');
+Route::post('api/passage/{id}', [CollecteController::class, 'showPassage'])->name('passage');
 Route::post('api/attestation/{id}', [DocumentController::class, 'showAttestation'])->name('attestation');
 
 // route admin
@@ -83,3 +83,16 @@ Route::post('logout' , [AccountController::class, 'logout'])->name('logout');  /
 //     // Route::get('logout' , [AccountController::class, 'logout']);
 //     });
 // });
+
+
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin', function () {
+        // Only users with the role 'admin' can access this route
+    });
+});
+
+Route::middleware(['permission:edit posts'])->group(function () {
+    Route::get('/edit', function () {
+        // Only users with the permission 'edit posts' can access this route
+    });
+});

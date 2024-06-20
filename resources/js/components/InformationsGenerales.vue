@@ -1,5 +1,5 @@
 <template>
-  <div>{{ now.value }}
+  <div>{{now.value}}
     <div v-if="data">
       <q-card class="my-card" flat bordered v-for="item in data">
         <div class="text-h6">Établissement principal</div>
@@ -50,7 +50,6 @@
 <script setup>
 import axios from 'axios';
 import { computed, ref } from 'vue';
-import { useQuasar } from 'quasar'
 
 const title = defineModel('title')
   
@@ -71,8 +70,6 @@ function formatDate(date){
   
 async function fetchData(id) {
   if(id.value){
-    error.value = null;
-    data.value = null;
     try {
       const response = await axios.post('/api/entreprise/{id}', {id:id.value});
       const result = await response.data;

@@ -15,4 +15,21 @@ class DocumentController extends Controller
         $attestation = Attestation::where('pointcollecte_id', 1712)->get();
         return response()->json(['result' => $attestation]);
     }
+
+    // public function showAttestation(int $id)
+    // {    
+    //     $attestation = Attestation::where('pointcollecte_id', $id)->get();
+    //     $attestation->checkPermission($id);
+    //     return response()->json(['result' => $attestation]);
+    // }
+
+    // public function checkPermission(int $id)
+    // {
+    //     $user = User::find($id);
+    //     if ($user->can('edit')) {
+    //         $create = 'create';
+    //     }else {
+    //         $download= 'download';
+    //     }
+    // }
 }

@@ -80,4 +80,9 @@ class User extends Authenticatable
     ];
     //  }
 
+    public function entreprises()
+    {
+        return $this->belongsToMany(Entreprise::class, 'client_user', 'user_id', 'client_id');
+    }
+
 }
